@@ -4,22 +4,20 @@
 
     if($conexao){
 
-        $requestData = $_REQUEST;
-
-        $id = isset($requestData['idcategoria']) ? $requestData['idcategoria'] : '';
-
-        $sql = "SELECT * FROM CATEGORIAS WHERE IDCATEGORIA = $id ";
-
+        $sql = "SELECT idcategoria, nome FROM categorias WHERE ativo = 'S'";
         $resultado = mysqli_query($conexao, $sql);
 
         if($resultado && mysqli_num_rows($resultado) > 0){
+
+            $dadosCategoria = array();
             while($linha = mysqli_fetch_assoc($resultado)){
-                $dadosCategoria = array_map('utf8_encode', $linha);
+                $dadosCategoria [] = array_map('utf8_encode', $linha);
             }
+
             $dados = array(
-                "tipo" => "error",
+                "tipo" =>"success",
                 "mensagem" => "",
-                "dados" => array()
+                "dados" => $dadosCategoria
             );
 
         } else{
@@ -35,7 +33,7 @@
     } else{
         $dados = array(
             "tipo" => "error",
-            "mensagem" => "Não foi possível conectar ao banco de dados",
+            "mensagem" => "Não possível conecar ao banco de dados",
             "dados" => array()
         );
     }
