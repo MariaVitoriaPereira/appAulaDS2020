@@ -10,7 +10,7 @@
 
         $sql = "SELECT idcategoria, nome, ativo, DATE_FORMAT(datacriacao, '%d/%m/%Y %H:%i:%s') as
         datacriacao, DATE_FORMAT(datamodificacao, '%d/%m/%Y %H:%i:%s') as datamodificacao FROM categorias 
-        WHERE idcategoria = $id "";
+        WHERE idcategoria = $id ";
 
         $resultado = mysqli_query($conexao, $sql);
 
@@ -19,9 +19,9 @@
                 $dadosCategoria = array_map('utf8_encode', $linha);
             }
             $dados = array(
-                "tipo" => "error",
+                "tipo" => "success",
                 "mensagem" => "",
-                "dados" => array()
+                "dados" => $dadosCategoria
             );
 
         } else{
